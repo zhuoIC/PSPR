@@ -24,29 +24,27 @@ public class RunProcessPing {
 			
 		}
 	private static void MostrarSalidaProceso(Process proceso) {
-	final String CHARSET = "utf-8";
-	int contador = 0;
-	try {
-		InputStreamReader lector = new InputStreamReader(proceso.getInputStream(), CHARSET);
-		BufferedReader br = new BufferedReader(lector);
-		String linea;
-		while((linea = br.readLine()) != null && contador <= 5){
-			System.out.println(linea);
-			contador++;
+		final String CHARSET = "utf-8";
+		int contador = 0;
+		try {
+			InputStreamReader lector = new InputStreamReader(proceso.getInputStream(), CHARSET);
+			BufferedReader br = new BufferedReader(lector);
+			String linea;
+			while((linea = br.readLine()) != null && contador <= 5){
+				System.out.println(linea);
+				contador++;
+			}
+			if(proceso != null) {
+				proceso.destroy();
+			}
+			proceso.waitFor();
+			System.out.println("Salida del proceso hijo: "+ proceso.exitValue());
+		} 
+		catch(InterruptedException e) {
+			System.out.println("No se pudo destruir el proceso");
 		}
-		if(proceso != null) {
-			proceso.destroy();
-		}
-		proceso.waitFor();
-		System.out.println("Salida del proceso hijo: "+ proceso.exitValue());
-	} 
-	catch(InterruptedException e) {
-		System.out.println("No se pudo destruir el proceso");
+		catch(IOException e){
+				e.printStackTrace();
+			}
 	}
-	catch(IOException e){
-			e.printStackTrace();
-		}
-
-	}
-
 }
