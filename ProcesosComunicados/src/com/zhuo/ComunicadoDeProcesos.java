@@ -41,13 +41,7 @@ public class ComunicadoDeProcesos {
 			}
 			
 			salidaB.close();
-			
-			if (pB != null) {
-				pB.destroy();
-			}
-			if (pA != null) {
-				pA.destroy();
-			}
+					
 			int finA = pA.waitFor();
 			int finB = pB.waitFor();
 			System.out.println("Procesos A y B finalizados con resultado" + finA + " y " + finB);
