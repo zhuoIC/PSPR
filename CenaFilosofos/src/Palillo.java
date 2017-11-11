@@ -8,25 +8,24 @@ public class Palillo {
 		this.enUso = false;
 	}
 	
-	public void coger(Filosofo filosofo) {
-		synchronized (this) {
+	public int getNumero() {
+		return numero +1;
+	}
+	
+	public synchronized void coger(Filosofo filosofo) {
 			while (enUso) {
 				try {
-					System.out.println("[PRE] El filósofo "+ filosofo.numero +" quiere coger los palillos.");
+					System.out.println("[PRE] El filósofo "+ filosofo.getNumero() +" quiere coger los palillos.");
 					this.wait();
-					System.out.println("[POST] El filósofo "+ filosofo.numero +" quiere coger los palillos.");
+					System.out.println("[POST] El filósofo "+ filosofo.getNumero() +" quiere coger los palillos.");
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 			this.enUso = true;
-		}
-
 	}
-	public void soltar(Filosofo filosofo) {
-		synchronized (this) {
+	public synchronized void soltar() {
 			this.enUso = false;
 			this.notifyAll();
-		}
 	}
 }
