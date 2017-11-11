@@ -9,7 +9,7 @@ public class SimulacionCena {
 		Cena cena = new Cena(comensales);
 
 		for (int i = 0; i < hilos.length; i++) {
-			hilos[i] = new Thread(new Filosofo(i, almuerzos, cena, (new Random()).nextBoolean()));
+			hilos[i] = new Thread(new Filosofo(i+1, almuerzos, cena, (new Random()).nextBoolean()));
 		}
 		System.out.println("Número de filósofos: "+comensales);
 		System.out.println("Número de comidas: "+almuerzos);

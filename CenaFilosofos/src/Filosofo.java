@@ -39,7 +39,7 @@ public class Filosofo implements Runnable{
 	}
 	public void cogerPalillos() {		
 		System.out.println("El filósofo "+ numero +" tiene hambre...");
-		/*boolean exitoD = false;
+		boolean exitoD = false;
 		boolean exitoI = false;
 		if(zurdo) {
 			exitoI = cogerPalilloI();
@@ -57,13 +57,15 @@ public class Filosofo implements Runnable{
 			cogerPalillos();
 		}
 		else if(!exitoI) {
-			if(exitoD)
+			if(exitoD) {
 				soltarPalilloD();
+				this.notifyAll();
+			}
 			System.out.println("El filósofo "+ numero +" no tiene palillos para comer...");
 			cogerPalillos();
 		}
 		else{
-		}*/
+		}
 	}
 	public void comer() {
 		System.out.println("El filósofo " + numero +" está comiendo.");
@@ -74,7 +76,7 @@ public class Filosofo implements Runnable{
 		System.out.println("El filósofo " + numero +" ha dejado de comer.");
 	}
 
-	/*public boolean cogerPalilloD(){
+	public boolean cogerPalilloD(){
 			boolean flag = true;
 			if(!cena.getPalillo(p_der).enUso) {
 				cena.getPalillo(p_der).coger(this);
@@ -96,15 +98,15 @@ public class Filosofo implements Runnable{
 				flag = false;
 			}
 			return flag;
-	}*/
+	}
 	
 	public void soltarPalilloD(){
-		cena.getPalillo(p_der).soltar();
+		cena.getPalillo(p_der).soltar(this);
 		System.out.println("El filósofo "+ numero+" ha soltado su palillo derecho ("+ cena.getPalillo(p_der).numero+")");
 
 	}
 	public void soltarPalilloI(){
-		cena.getPalillo(p_izq).soltar();
+		cena.getPalillo(p_izq).soltar(this);
 		System.out.println("El filósofo "+ numero+" ha soltado su palillo izquierdo ("+ cena.getPalillo(p_izq).numero+")");
 	}
 }

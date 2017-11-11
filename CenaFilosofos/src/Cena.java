@@ -6,7 +6,7 @@ public class Cena {
 	public Cena(int comensales) {
 		this.comensales = comensales;
 		palillos = new ArrayList<>();
-		for (int i = 0; i < comensales; i++) {
+		for (int i = 1; i <= comensales; i++) {
 			final Palillo palillo = new  Palillo(i);
 			palillos.add(palillo);
 		}
