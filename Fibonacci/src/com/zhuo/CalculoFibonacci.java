@@ -14,7 +14,7 @@ public class CalculoFibonacci extends Thread{
 		suma = fibonacciIterativa(veces);
 	}
 	public static void main(String[] args) {
-		int n = 10;
+		int n = 20;
 		long timeRecursiva;
 		long timeIterativa;
 		long timeThread;
@@ -24,7 +24,7 @@ public class CalculoFibonacci extends Thread{
 		timeRecursiva += System.nanoTime();
 		
 		timeIterativa = -System.nanoTime();
-		double nIterativa = fibonacciIterativa(n);
+		double nIterativa = (new CalculoFibonacci(0)).fibonacciIterativa(n);
 		timeIterativa += System.nanoTime();
 		
 		timeThread = -System.nanoTime();
@@ -48,7 +48,7 @@ public class CalculoFibonacci extends Thread{
 		return valor;
 	}
 	
-	public static double fibonacciIterativa(int n) {
+	public double fibonacciIterativa(int n) {
 		double valor = 0;
 		double resto = 1;
 		double resto2 = 1;
@@ -87,4 +87,5 @@ public class CalculoFibonacci extends Thread{
 		}
 		return suma;
 	}
+
 }
