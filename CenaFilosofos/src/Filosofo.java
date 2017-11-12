@@ -20,12 +20,21 @@ public class Filosofo implements Runnable{
 	
 	@Override
 	public void run() {
+		int p_primero, p_segundo;
+		if (zurdo) {
+			p_primero = this.p_izq;
+			p_segundo = this.p_der;
+		}
+		else {
+			p_primero = this.p_der;
+			p_segundo = this.p_izq;
+		}
 		for (int i = 0; i < veces; i++) {
 			System.out.println((i+1)+"ª comida del filósofo "+getNumero()+" ("+isZurdo()+")");
 			pensar();
-			cogerPalillos();
+			cogerPalillos(p_primero, p_segundo);
 			comer();
-			soltarPalillos();
+			soltarPalillos(p_primero, p_segundo);
 			System.out.println("Fin de la "+(i+1)+"ª comida del filósofo "+getNumero());
 		}		
 	}
@@ -38,19 +47,9 @@ public class Filosofo implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	public void cogerPalillos() {		
-		System.out.println("El filósofo "+ getNumero() +" tiene hambre...");
-		
-		if(zurdo) {
-			cogerPalillos(this.p_izq, this.p_der);
-		}
-		else {
-			cogerPalillos(this.p_der, this.p_izq);
-		}
-
-	}
 	
 	public void cogerPalillos(int p_primero, int p_segundo) {
+		System.out.println("El filósofo "+ getNumero() +" tiene hambre...");
 		boolean exitoS = false;
 		boolean exitoP = false;
 		exitoP = cogerPalillo(p_primero);
@@ -60,29 +59,24 @@ public class Filosofo implements Runnable{
 				soltarPalillo(p_primero);
 			}
 			System.out.println("El filósofo "+getNumero()+" no tiene palillos para comer...");
-			cogerPalillos();
+			cogerPalillos(p_primero, p_segundo);
 		}
 		else if(!exitoP) {
 			if(exitoS) {
 				soltarPalillo(p_segundo);
 			}
 			System.out.println("El filósofo "+ getNumero() +" no tiene palillos para comer...");
-			cogerPalillos();
+			cogerPalillos(p_primero, p_segundo);
 		}
 	}
 	
 	public void comer() {
 		System.out.println("El filósofo " + getNumero() +" está comiendo.");
 	}
-	public void soltarPalillos() {
-		if(zurdo) {
-			soltarPalillo(this.p_izq);
-			soltarPalillo(this.p_der);
-		}
-		else {
-			soltarPalillo(this.p_der);
-			soltarPalillo(this.p_izq);
-		}
+	
+	public void soltarPalillos(int p_primero, int p_segundo) {
+		soltarPalillo(p_primero);
+		soltarPalillo(p_segundo);
 		System.out.println("El filósofo " + getNumero() +" ha dejado de comer.");
 	}
 
@@ -95,7 +89,6 @@ public class Filosofo implements Runnable{
 				flag = false;
 			}
 			return flag;
-		
 	}
 	
 	public void soltarPalillo(int palillo){
