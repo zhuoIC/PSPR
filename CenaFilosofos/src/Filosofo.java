@@ -46,32 +46,53 @@ public class Filosofo implements Runnable{
 		if(zurdo) {
 			exitoI = cogerPalilloI();
 			exitoD = cogerPalilloD();
+			if(!exitoD) {
+				if(exitoI) {
+					soltarPalilloI();
+				}
+				System.out.println("El filósofo "+getNumero()+" no tiene palillos para comer...");
+				cogerPalillos();
+			}
+			else if(!exitoI) {
+				if(exitoD) {
+					soltarPalilloD();
+				}
+				System.out.println("El filósofo "+ getNumero() +" no tiene palillos para comer...");
+				cogerPalillos();
+			}
 		}
 		else {
 			exitoD = cogerPalilloD();
 			exitoI = cogerPalilloI();
-		}
-		if(!exitoD) {
-			if(exitoI) {
-				soltarPalilloI();
+			if(!exitoI) {
+				if(exitoD) {
+					soltarPalilloD();
+				}
+				System.out.println("El filósofo "+getNumero()+" no tiene palillos para comer...");
+				cogerPalillos();
 			}
-			System.out.println("El filósofo "+getNumero()+" no tiene palillos para comer...");
-			cogerPalillos();
-		}
-		else if(!exitoI) {
-			if(exitoD) {
-				soltarPalilloD();
+			else if(!exitoD) {
+				if(exitoI) {
+					soltarPalilloI();
+				}
+				System.out.println("El filósofo "+ getNumero() +" no tiene palillos para comer...");
+				cogerPalillos();
 			}
-			System.out.println("El filósofo "+ getNumero() +" no tiene palillos para comer...");
-			cogerPalillos();
 		}
+
 	}
 	public void comer() {
 		System.out.println("El filósofo " + getNumero() +" está comiendo.");
 	}
 	public void soltarPalillos() {
-		soltarPalilloD();
-		soltarPalilloI();
+		if(zurdo) {
+			soltarPalilloI();
+			soltarPalilloD();
+		}
+		else {
+			soltarPalilloD();
+			soltarPalilloI();
+		}
 		System.out.println("El filósofo " + getNumero() +" ha dejado de comer.");
 	}
 
@@ -98,12 +119,9 @@ public class Filosofo implements Runnable{
 	}
 	
 	public void soltarPalilloD(){
-		cena.getPalillo(p_der).soltar();
-		System.out.println("El filósofo "+ getNumero()+" ha soltado su palillo derecho ("+ cena.getPalillo(p_der).getNumero()+")");
-
+		cena.getPalillo(p_der).soltar(this);
 	}
 	public void soltarPalilloI(){
-		cena.getPalillo(p_izq).soltar();
-		System.out.println("El filósofo "+ getNumero()+" ha soltado su palillo izquierdo ("+ cena.getPalillo(p_izq).getNumero()+")");
+		cena.getPalillo(p_izq).soltar(this);
 	}
 }

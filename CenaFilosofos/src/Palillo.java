@@ -28,8 +28,13 @@ public class Palillo {
 			else
 				System.out.println("El filósofo "+ filosofo.getNumero()+" ha cogido su palillo izquierdo ("+ this.getNumero()+")");
 	}
-	public synchronized void soltar() {
+	public synchronized void soltar(Filosofo filosofo) {
 			this.enUso = false;
+			if(this.getNumero() == filosofo.getNumero())
+				System.out.println("El filósofo "+ filosofo.getNumero()+" ha soltado su palillo derecho ("+ this.getNumero()+")");
+			else
+				System.out.println("El filósofo "+ filosofo.getNumero()+" ha soltado su palillo izquierdo ("+ this.getNumero()+")");
+
 			this.notifyAll();
 	}
 }
