@@ -23,6 +23,10 @@ public class Palillo {
 				}
 			}
 			this.enUso = true;
+			if(this.getNumero() == filosofo.getNumero())
+				System.out.println("El filósofo "+ filosofo.getNumero()+" ha cogido su palillo derecho ("+ this.getNumero()+")");
+			else
+				System.out.println("El filósofo "+ filosofo.getNumero()+" ha cogido su palillo izquierdo ("+ this.getNumero()+")");
 	}
 	public synchronized void soltar() {
 			this.enUso = false;

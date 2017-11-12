@@ -79,7 +79,6 @@ public class Filosofo implements Runnable{
 			boolean flag = true;
 			if(!cena.getPalillo(p_der).enUso) {
 				cena.getPalillo(p_der).coger(this);
-				System.out.println("El filósofo "+ getNumero()+" ha cogido su palillo derecho ("+ cena.getPalillo(p_der).getNumero()+")");
 			}
 			else {
 				flag = false;
@@ -91,7 +90,6 @@ public class Filosofo implements Runnable{
 			boolean flag = true;
 			if(!cena.getPalillo(p_izq).enUso) {
 				cena.getPalillo(p_izq).coger(this);
-				System.out.println("El filósofo "+ getNumero()+" ha cogido su palillo izquierdo ("+ cena.getPalillo(p_izq).getNumero()+")");
 			}
 			else {
 				flag = false;
