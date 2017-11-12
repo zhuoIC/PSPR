@@ -40,66 +40,56 @@ public class Filosofo implements Runnable{
 	}
 	public void cogerPalillos() {		
 		System.out.println("El filósofo "+ getNumero() +" tiene hambre...");
-		boolean exitoD = false;
-		boolean exitoI = false;
 		
 		if(zurdo) {
-			exitoI = cogerPalilloI();
-			exitoD = cogerPalilloD();
-			if(!exitoD) {
-				if(exitoI) {
-					soltarPalilloI();
-				}
-				System.out.println("El filósofo "+getNumero()+" no tiene palillos para comer...");
-				cogerPalillos();
-			}
-			else if(!exitoI) {
-				if(exitoD) {
-					soltarPalilloD();
-				}
-				System.out.println("El filósofo "+ getNumero() +" no tiene palillos para comer...");
-				cogerPalillos();
-			}
+			cogerPalillos(this.p_izq, this.p_der);
 		}
 		else {
-			exitoD = cogerPalilloD();
-			exitoI = cogerPalilloI();
-			if(!exitoI) {
-				if(exitoD) {
-					soltarPalilloD();
-				}
-				System.out.println("El filósofo "+getNumero()+" no tiene palillos para comer...");
-				cogerPalillos();
-			}
-			else if(!exitoD) {
-				if(exitoI) {
-					soltarPalilloI();
-				}
-				System.out.println("El filósofo "+ getNumero() +" no tiene palillos para comer...");
-				cogerPalillos();
-			}
+			cogerPalillos(this.p_der, this.p_izq);
 		}
 
 	}
+	
+	public void cogerPalillos(int p_primero, int p_segundo) {
+		boolean exitoS = false;
+		boolean exitoP = false;
+		exitoP = cogerPalillo(p_primero);
+		exitoS = cogerPalillo(p_segundo);
+		if(!exitoS) {
+			if(exitoP) {
+				soltarPalillo(p_primero);
+			}
+			System.out.println("El filósofo "+getNumero()+" no tiene palillos para comer...");
+			cogerPalillos();
+		}
+		else if(!exitoP) {
+			if(exitoS) {
+				soltarPalillo(p_segundo);
+			}
+			System.out.println("El filósofo "+ getNumero() +" no tiene palillos para comer...");
+			cogerPalillos();
+		}
+	}
+	
 	public void comer() {
 		System.out.println("El filósofo " + getNumero() +" está comiendo.");
 	}
 	public void soltarPalillos() {
 		if(zurdo) {
-			soltarPalilloI();
-			soltarPalilloD();
+			soltarPalillo(this.p_izq);
+			soltarPalillo(this.p_der);
 		}
 		else {
-			soltarPalilloD();
-			soltarPalilloI();
+			soltarPalillo(this.p_der);
+			soltarPalillo(this.p_izq);
 		}
 		System.out.println("El filósofo " + getNumero() +" ha dejado de comer.");
 	}
 
-	public boolean cogerPalilloD(){
+	public boolean cogerPalillo(int palillo){
 			boolean flag = true;
-			if(!cena.getPalillo(p_der).enUso) {
-				cena.getPalillo(p_der).coger(this);
+			if(!cena.getPalillo(palillo).enUso) {
+				cena.getPalillo(palillo).coger(this);
 			}
 			else {
 				flag = false;
@@ -107,21 +97,8 @@ public class Filosofo implements Runnable{
 			return flag;
 		
 	}
-	public boolean cogerPalilloI(){
-			boolean flag = true;
-			if(!cena.getPalillo(p_izq).enUso) {
-				cena.getPalillo(p_izq).coger(this);
-			}
-			else {
-				flag = false;
-			}
-			return flag;
-	}
 	
-	public void soltarPalilloD(){
-		cena.getPalillo(p_der).soltar(this);
-	}
-	public void soltarPalilloI(){
-		cena.getPalillo(p_izq).soltar(this);
+	public void soltarPalillo(int palillo){
+		cena.getPalillo(palillo).soltar(this);
 	}
 }
