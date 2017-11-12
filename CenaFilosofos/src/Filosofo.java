@@ -21,7 +21,7 @@ public class Filosofo implements Runnable{
 	@Override
 	public void run() {
 		for (int i = 0; i < veces; i++) {
-			System.out.println((i+1)+"ª comida del filósofo "+getNumero()+" ("+zurdo+")");
+			System.out.println((i+1)+"ª comida del filósofo "+getNumero()+" ("+isZurdo()+")");
 			pensar();
 			cogerPalillos();
 			comer();
@@ -100,5 +100,9 @@ public class Filosofo implements Runnable{
 	
 	public void soltarPalillo(int palillo){
 		cena.getPalillo(palillo).soltar(this);
+	}
+	
+	public String isZurdo() {
+		return this.zurdo ? "es zurdo" : "es diestro";
 	}
 }
