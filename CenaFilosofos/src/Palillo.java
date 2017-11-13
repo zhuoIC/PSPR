@@ -43,6 +43,6 @@ public class Palillo {
 			else
 				System.out.println("El filósofo "+ filosofo.getNumero()+" ha soltado su palillo izquierdo ("+ this.getNumero()+")");
 
-			this.notifyAll();
+			this.notify();
 	}
 }
