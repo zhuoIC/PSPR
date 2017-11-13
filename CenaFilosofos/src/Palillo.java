@@ -8,12 +8,20 @@ public class Palillo {
 		this.enUso = false;
 	}
 	
+	public synchronized boolean isEnUso() {
+		return enUso;
+	}
+
+	public synchronized void setEnUso(boolean enUso) {
+		this.enUso = enUso;
+	}
+
 	public int getNumero() {
 		return numero +1;
 	}
 	
 	public synchronized void coger(Filosofo filosofo) {
-			while (enUso) {
+			while (isEnUso()) {
 				try {
 					System.out.println("[PRE] El filósofo "+ filosofo.getNumero() +" quiere coger los palillos.");
 					this.wait();
@@ -22,14 +30,14 @@ public class Palillo {
 					e.printStackTrace();
 				}
 			}
-			this.enUso = true;
+			setEnUso(true);
 			if(this.getNumero() == filosofo.getNumero())
 				System.out.println("El filósofo "+ filosofo.getNumero()+" ha cogido su palillo derecho ("+ this.getNumero()+")");
 			else
 				System.out.println("El filósofo "+ filosofo.getNumero()+" ha cogido su palillo izquierdo ("+ this.getNumero()+")");
 	}
 	public synchronized void soltar(Filosofo filosofo) {
-			this.enUso = false;
+			setEnUso(false);
 			if(this.getNumero() == filosofo.getNumero())
 				System.out.println("El filósofo "+ filosofo.getNumero()+" ha soltado su palillo derecho ("+ this.getNumero()+")");
 			else

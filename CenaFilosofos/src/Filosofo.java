@@ -82,7 +82,7 @@ public class Filosofo implements Runnable{
 
 	public boolean cogerPalillo(int palillo){
 			boolean flag = true;
-			if(!cena.getPalillo(palillo).enUso) {
+			if(!cena.getPalillo(palillo).isEnUso()) {
 				cena.getPalillo(palillo).coger(this);
 			}
 			else {
