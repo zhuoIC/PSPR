@@ -12,14 +12,17 @@ public class Resultados {
 	}
 	
 	public void imprimirResultados() {
+		long tiempo = 0;
 		System.out.println();
 		System.out.println("Resultado del ejercicio");
 		System.out.println("------------------------------");
 		for (Resultado resultado : this.resultado) {
 			System.out.println(resultado.toString());
+			tiempo += resultado.getCliente().getTiempo();
 		}
 		System.out.println();
-		System.out.println("Fin de los resultados");
+		System.out.println("Fin de los resultados. Tiempo medio: "
+		+ tiempo / resultado.length+ " milisegundo(s).");
 	}
 }
 class Resultado {
@@ -27,6 +30,7 @@ class Resultado {
 	private Caja caja;
 	private float precio;
 	private static final Random random = new Random();
+	
 	public Resultado (Cliente cliente, Caja caja) {
 		this.cliente = cliente;
 		this.caja = caja;
@@ -37,6 +41,11 @@ class Resultado {
 	public String toString() {
 		return "El cliente ["+cliente.getId()+
 				"] ha pagado en la caja ["+caja.getNumero()+
-				"] "+ String.format("%.2f", precio) +"€";
+				"] "+ String.format("%.2f", precio) +"€ "+
+				"Tiempo empleado: "+cliente.getTiempo()+" milisegundo(s).";
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
 }

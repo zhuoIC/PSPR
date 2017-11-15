@@ -2,8 +2,8 @@
 public class Supermercado {
 
 	public static void main(String[] args) {
-		int nCajas = Integer.parseInt(args[0]);
-		int nClientes = Integer.parseInt(args[1]);
+		int nClientes = Integer.parseInt(args[0]);
+		int nCajas = Integer.parseInt(args[1]);
 		Caja[] cajas = new Caja[nCajas];
 		Thread[] clientes = new Thread[nClientes];
 		Resultados resultados = new Resultados(nClientes);

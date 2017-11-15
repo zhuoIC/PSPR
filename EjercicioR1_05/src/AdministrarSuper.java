@@ -10,13 +10,9 @@ public class AdministrarSuper {
 		this.cajas = cajas;
 		this.turno = 0;
 	}
-
 	
-	public synchronized void hacerCola(Cliente cliente){
+	public synchronized void pagarEnCaja(Cliente cliente) {
 		cliente.setTurno(++turno);
-	}
-	
-	public synchronized void esperarCola(Cliente cliente) {
 		while(turno != cliente.getTurno()) {
 			try {
 				wait();
@@ -34,12 +30,8 @@ public class AdministrarSuper {
 		if (caja == null) {
 			caja = cajas[random.nextInt(cajas.length)];
 		}
-		caja.setLibre(false);
-	}
-	
-	public synchronized void pagarEnCaja(Cliente cliente) {
+		
 		caja.pagar(cliente);
-		caja.setLibre(true);
 		turno++;
 		notifyAll();
 	}

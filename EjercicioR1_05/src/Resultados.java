@@ -3,8 +3,8 @@ import java.util.Random;
 public class Resultados {
 	Resultado[] resultado;
 	int nResultados;
-	public Resultados(int nClientes) {
-		resultado = new Resultado[nClientes];
+	public Resultados(int clientes) {
+		resultado = new Resultado[clientes];
 	}
 	
 	public void addResultado(Resultado resultado) {
@@ -21,8 +21,8 @@ public class Resultados {
 			tiempo += resultado.getCliente().getTiempo();
 		}
 		System.out.println();
-		System.out.println("Fin de los resultados. Tiempo medio: "+
-		tiempo/resultado.length+" milisegundo(s).");
+		System.out.println("Fin de los resultados. Tiempo medio: "
+		+ tiempo / resultado.length+ " milisegundo(s).");
 	}
 }
 class Resultado {
@@ -41,11 +41,11 @@ class Resultado {
 	public String toString() {
 		return "El cliente ["+cliente.getId()+
 				"] ha pagado en la caja ["+caja.getNumero()+
-				"] "+ String.format("%.2f", precio) +"€. Ha tardado "+
-				cliente.getTiempo()+" milisegundo(s).";
+				"] "+ String.format("%.2f", precio) +"€ "+
+				"Tiempo empleado: "+cliente.getTiempo()+" milisegundo(s).";
 	}
 	
 	public Cliente getCliente() {
-		return this.cliente;
+		return cliente;
 	}
 }

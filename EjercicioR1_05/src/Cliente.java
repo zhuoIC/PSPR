@@ -15,9 +15,7 @@ public class Cliente implements Runnable {
 	
 	public void run() {
 		comprar();
-		administrarSuper.hacerCola(this);
 		tiempo = System.currentTimeMillis();
-		administrarSuper.esperarCola(this);
 		administrarSuper.pagarEnCaja(this);
 		tiempo = System.currentTimeMillis() - tiempo;
 	}

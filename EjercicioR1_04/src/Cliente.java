@@ -6,6 +6,7 @@ public class Cliente implements Runnable {
 	private int turno;
 	private int nCaja;
 	private Random random;
+	private long tiempo;
 	
 	public Cliente (int identificador, Caja[] cajas) {
 		this.identificador = identificador;
@@ -15,9 +16,11 @@ public class Cliente implements Runnable {
 	
 	public void run() {
 		comprar();
+		tiempo = System.currentTimeMillis();
 		nCaja = seleccionarCaja();
 		cajas[nCaja].hacerCola(this);
 		cajas[nCaja].pagar(this);
+		tiempo = System.currentTimeMillis() - tiempo;
 	}
 	
 	public int getId() {
@@ -30,6 +33,10 @@ public class Cliente implements Runnable {
 	
 	public int getTurno() {
 		return turno;
+	}
+	
+	public long getTiempo() {
+		return tiempo;
 	}
 	
 	private void comprar() {
