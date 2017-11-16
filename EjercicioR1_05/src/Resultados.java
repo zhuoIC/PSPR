@@ -40,6 +40,7 @@ class Resultado {
 	@Override
 	public String toString() {
 		return "El cliente ["+cliente.getId()+
+				"] con turno ["+cliente.getTurno()+
 				"] ha pagado en la caja ["+caja.getNumero()+
 				"] "+ String.format("%.2f", precio) +"€ "+
 				"Tiempo empleado: "+cliente.getTiempo()+" milisegundo(s).";

@@ -7,7 +7,7 @@ public class AdministrarSuper {
 	
 	public AdministrarSuper(Caja[] cajas) {
 		this.cajas = cajas;
-		this.turno = 1;
+		this.setTurno(1);
 		this.ticket = 0;
 		iniciarCajasLibres();
 	}
@@ -19,39 +19,56 @@ public class AdministrarSuper {
 		}
 	}
 	
+	public void cajaDisponible() {
+		
+	}
+	
 	public synchronized void ocuparCaja(int nCaja) {
 		cajasLibres[nCaja] = false;
 	}
 	
 	public synchronized void liberarCaja(int nCaja) {
 		cajasLibres[nCaja] = true;
+		notify();
 	}
 	
 	public synchronized int hayCajasLibres() {
-		System.out.println(cajasLibres.length);
-		for (int i = cajasLibres.length - 1; i >= 0 ; i--) {
-			if(cajasLibres[i]) {
-				return i;
-			}
-		}
+
 		return -1;
 	}
 	
 	public synchronized void pagarEnCaja(Cliente cliente) {
 		cliente.setTurno(++ticket);
-		int nCaja;
-		while((nCaja = hayCajasLibres()) == -1 || turno == cliente.getTurno()) {
+		int nCaja = esperarCola(cliente);
+		cajas[nCaja].pagar(cliente);
+		liberarCaja(nCaja);
+	}
+	
+	public synchronized int esperarCola(Cliente cliente) {
+		int numero = -1;
+		while (true) {
+			for (int i = cajasLibres.length - 1; i >= 0; i--) {
+				if (getTurno() == cliente.getTurno() && cajasLibres[i]) {
+					numero = i;
+					ocuparCaja(numero);
+					setTurno(getTurno() + 1);
+
+					break;
+				}
+			}
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			} 
 		}
-		ocuparCaja(nCaja);
-		turno++;
-		notifyAll();
-		cajas[nCaja].pagar(cliente);
-		liberarCaja(nCaja);
+	}
 
+	public int getTurno() {
+		return turno;
+	}
+
+	public void setTurno(int turno) {
+		this.turno = turno;
 	}
 }
