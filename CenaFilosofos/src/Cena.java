@@ -16,7 +16,7 @@ public class Cena {
 		return palillos.get(idPalillo);
 	}
 	public int getPalilloD(int posicion) {
-		return (posicion + palillos.size()) % palillos.size();
+		return posicion;
 	}
 	public int getPalilloI(int posicion) {
 		return ((posicion + 1) + palillos.size()) % palillos.size();

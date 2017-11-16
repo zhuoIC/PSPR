@@ -50,24 +50,8 @@ public class Filosofo implements Runnable{
 	
 	public void cogerPalillos(int p_primero, int p_segundo) {
 		System.out.println("El filósofo "+ getNumero() +" tiene hambre...");
-		boolean exitoS = false;
-		boolean exitoP = false;
-		exitoP = cogerPalillo(p_primero);
-		exitoS = cogerPalillo(p_segundo);
-		if(!exitoS) {
-			if(exitoP) {
-				soltarPalillo(p_primero);
-			}
-			System.out.println("El filósofo "+getNumero()+" no tiene palillos para comer...");
-			cogerPalillos(p_primero, p_segundo);
-		}
-		else if(!exitoP) {
-			if(exitoS) {
-				soltarPalillo(p_segundo);
-			}
-			System.out.println("El filósofo "+ getNumero() +" no tiene palillos para comer...");
-			cogerPalillos(p_primero, p_segundo);
-		}
+		cena.getPalillo(p_primero).coger(this);
+		cena.getPalillo(p_segundo).coger(this);
 	}
 	
 	public void comer() {
@@ -75,24 +59,9 @@ public class Filosofo implements Runnable{
 	}
 	
 	public void soltarPalillos(int p_primero, int p_segundo) {
-		soltarPalillo(p_primero);
-		soltarPalillo(p_segundo);
+		cena.getPalillo(p_primero).soltar(this);
+		cena.getPalillo(p_segundo).soltar(this);
 		System.out.println("El filósofo " + getNumero() +" ha dejado de comer.");
-	}
-
-	public boolean cogerPalillo(int palillo){
-			boolean flag = true;
-			if(!cena.getPalillo(palillo).enUso) {
-				cena.getPalillo(palillo).coger(this);
-			}
-			else {
-				flag = false;
-			}
-			return flag;
-	}
-	
-	public void soltarPalillo(int palillo){
-		cena.getPalillo(palillo).soltar(this);
 	}
 	
 	public String isZurdo() {
