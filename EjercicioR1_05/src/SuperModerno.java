@@ -7,15 +7,18 @@ public class SuperModerno {
 		Caja[] cajas = new Caja[nCajas];
 		Thread[] clientes = new Thread[nClientes];
 		Resultados resultados = new Resultados(nClientes);
-		AdministrarSuper administrarSuper = new AdministrarSuper(cajas);
+		
 		
 		for (int i = 0; i < cajas.length; i++) {
 			cajas[i] = new Caja(i, resultados);
 		}
 		
+		AdministrarSuper administrarSuper = new AdministrarSuper(cajas);
+		
 		for (int i = 0; i < clientes.length; i++) {
 			clientes[i] = new Thread(new Cliente(i, administrarSuper));
 		}
+		
 		
 		for (Thread cliente : clientes) {
 			cliente.start();

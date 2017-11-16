@@ -3,12 +3,15 @@ package com.zhuo;
 public class ControlParking {
 	boolean entradaEnUso;
 	int turno;
+	int ticket;
 	public ControlParking() {
 		entradaEnUso = false;
+		turno = 1;
+		ticket = 0;
 	}
 	
-	public void quiereEntrarVehículo(Coche coche) {
-		coche.turno = turno + 1;
+	public synchronized void quiereEntrarVehículo(Coche coche) {
+		coche.turno = ++ticket;
 		while (entradaEnUso || turno != coche.turno) {
 			try {
 				wait();
@@ -23,9 +26,10 @@ public class ControlParking {
 			e.printStackTrace();
 		}
 		entradaEnUso = false;
+		turno++;
 		notifyAll();
 	}
-	public void quiereSalirVehículo(Coche coche) {
+	public synchronized void quiereSalirVehículo(Coche coche) {
 		while(entradaEnUso) {
 			try {
 				wait();
