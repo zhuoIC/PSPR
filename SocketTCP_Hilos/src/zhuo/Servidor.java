@@ -8,7 +8,7 @@ public class Servidor {
 	static final int PUERTO = 5000;
 	
 	public static void main(String[] args) {
-
+		new Servidor();
 	}
 	
 	public Servidor() {
@@ -24,7 +24,8 @@ public class Servidor {
 				System.out.println("Atendiendo al nuevo cliente: " + nClientes);
 				
 				//creamos un hilo para atender al cliente y así liberar al socket principal
-				new SevidorHilo(skAtencion, nClientes);
+				new SevidorHilo(skAtencion, nClientes).start();
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
