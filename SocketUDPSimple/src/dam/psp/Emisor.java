@@ -1,4 +1,4 @@
-package zhuo;
+package dam.psp;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -10,25 +10,26 @@ import java.net.UnknownHostException;
 public class Emisor {
 	public static final int PuertoEmisor = 5555;
 	public static final int PuertoReceptor = 4444;
-	public static final String IPReceptor = "localhost";
-	
-	public Emisor() {
+	public static final String IPReceptor = "localhost";//"192.168.3.57";
+		public Emisor() {
 		DatagramSocket emisor = null;
 		DatagramPacket dgp;
 		InetAddress IPLocal;
 		InetAddress IPRemota;
-		byte[] contenido = new byte[] {1,2,3,4};
-		String mensaje = "Van dos y se cae el del medio";
+		byte[] contenido = new byte[140];
+		int valor = 5;
+		String cadena = "Así funciona";
+		DatoUDP datoUDP = new DatoUDP(cadena, valor);
 		
 		try {
 			IPLocal = InetAddress.getByName("0.0.0.0");
 			IPRemota = InetAddress.getByName(IPReceptor);
-			contenido = mensaje.getBytes();
+			contenido = datoUDP.ToByteArray();
 			emisor = new DatagramSocket(PuertoEmisor, IPLocal);
 			dgp = new DatagramPacket(contenido, contenido.length, IPRemota, PuertoReceptor);
 			
 			emisor.send(dgp);
-			System.out.println("Datos correctamente enviados");
+			System.out.println("Datos correctamente enviados: " + cadena.length());
 			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
