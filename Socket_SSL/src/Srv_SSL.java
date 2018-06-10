@@ -21,7 +21,17 @@ public class Srv_SSL {
 		}
 	}
 	public static void main(String[] args) throws IOException {
-		new Srv_SSL();
+		try {
+			System.setProperty("javax.net.ssl.keyStore", "./cert/AlmacenSRV");
+			System.setProperty("javax.net.ssl.keyStorePassword", "mallorcamola");
+			System.setProperty("javax.net.ssl.trustStore", "./cert/AlmacenSRV");
+			System.setProperty("javax.net.ssl.trustStorePassword", "mallorcamola");
+
+			new Srv_SSL();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+}
 	}
 
 }
